@@ -18,7 +18,7 @@ class OnboardingViewModel @Inject constructor(fakeRepository: FakeRepository) : 
     private val fakeEvent = MutableStateFlow(1)
 
     fun fetchOneMoreElement() {
-
+        // TODO: not implemented yet
     }
 
     val registerState = OnboardingUiState(

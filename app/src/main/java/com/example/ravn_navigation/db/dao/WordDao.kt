@@ -11,7 +11,7 @@ import java.nio.channels.Channels
 @Dao
 interface WordDao {
     @Query("SELECT * FROM Word")
-    fun getAllWords(): Flow<List<Channels>>
+    fun getAllWords(): Flow<List<Word>>
 
     @Insert
     suspend fun insertWord(value: Word)

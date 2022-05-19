@@ -55,8 +55,7 @@ private fun Preview() {
         titleFlow = MutableStateFlow("TEST"),
         mutableStateValue = MutableStateFlow(listOf("HELO", "WORLD", "PREVIEW")),
         fakeValue = MutableStateFlow(1),
-        fetchMoreData = {},
-        navigateToRegister = {}
+        fetchMoreData = {}
     )
 
     LoginScreenContent(state = loginState)

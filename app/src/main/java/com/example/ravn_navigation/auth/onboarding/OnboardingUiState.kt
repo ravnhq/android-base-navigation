@@ -7,5 +7,4 @@ data class OnboardingUiState(
     val mutableStateValue: StateFlow<List<String>>,
     val fakeValue: StateFlow<Int>,
     val fetchMoreData: () -> Unit,
-    val navigateToRegister: () -> Unit
 )

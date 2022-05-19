@@ -17,7 +17,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ravn_navigation.auth.onboarding.AuthOnboardingRoute
 import com.example.ravn_navigation.nav.LocalNavigator
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 
 @Composable
@@ -25,13 +24,9 @@ fun LoginScreen(viewModel: LoginViewModel = viewModel()) {
     LoginScreenContent(viewModel.registerState)
 }
 
-data class LoginState(
-    val titleFlow: StateFlow<String>,
-    val navigateToRegister: () -> Unit
-)
 
 @Composable
-private fun LoginScreenContent(state: LoginState) {
+private fun LoginScreenContent(state: LoginUiState) {
     val title by state.titleFlow.collectAsState()
 
     val navController = LocalNavigator.current
@@ -48,7 +43,7 @@ private fun LoginScreenContent(state: LoginState) {
                 .background(Color.Black)
         ) {
             Button(onClick = { navController?.navigateSafely(AuthOnboardingRoute.createRoute()) }) {
-                Text("ONBOARDING")
+                Text("GO TO ONBOARDING")
             }
         }
     }
@@ -57,9 +52,8 @@ private fun LoginScreenContent(state: LoginState) {
 @Composable
 @Preview
 private fun preview() {
-    val loginState = LoginState(
-        titleFlow = MutableStateFlow("TEST"),
-        navigateToRegister = {}
+    val loginState = LoginUiState(
+        titleFlow = MutableStateFlow("TEST")
     )
 
     LoginScreenContent(state = loginState)

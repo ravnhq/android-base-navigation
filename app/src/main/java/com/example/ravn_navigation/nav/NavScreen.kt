@@ -21,7 +21,7 @@ fun NavScreen(scaffoldState: ScaffoldState) {
     ) { padding ->
         Box(Modifier.padding(padding)) {
             MainNavGraph(navigator, state)
-            navigator.navController.navigateSafely(AuthOnboardingRoute.createRoute())
+            navigator.navController.navigateSafely(AuthLoginRoute.createRoute())
         }
     }
 }

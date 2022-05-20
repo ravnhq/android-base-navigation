@@ -4,27 +4,35 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ravn_navigation.repository.FakeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnboardingViewModel @Inject constructor(fakeRepository: FakeRepository) : ViewModel() {
+class OnboardingViewModel @Inject constructor(val fakeRepository: FakeRepository) : ViewModel() {
 
     private val titleFlow: MutableStateFlow<String> = MutableStateFlow("Onboarding")
-    private var dataFromDb: Flow<List<String>> = fakeRepository.getDataFromRoom()
-    private val fakeEvent = MutableStateFlow(1)
+    private var dataFromDb = fakeRepository.getDataFromRoom().stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+    private val wordValueFlow: MutableStateFlow<String> = MutableStateFlow("")
 
     fun fetchOneMoreElement() {
-        // TODO: not implemented yet
+        viewModelScope.launch(Dispatchers.IO) {
+            fakeRepository.addDataToRoom(wordValueFlow.value)
+        }
+    }
+
+    fun onWordChanged(value: String) {
+        wordValueFlow.value = value
     }
 
     val registerState = OnboardingUiState(
         titleFlow = titleFlow,
-        mutableStateValue = dataFromDb.stateIn(viewModelScope, SharingStarted.Lazily, emptyList()),
-        fakeEvent,
+        wordValue = wordValueFlow,
+        mutableStateValue = dataFromDb,
         fetchMoreData = this::fetchOneMoreElement,
+        onWordValueChanged = this::onWordChanged
     )
 }

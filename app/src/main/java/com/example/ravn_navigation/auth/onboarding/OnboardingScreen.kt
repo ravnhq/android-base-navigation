@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -24,7 +25,7 @@ fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel()) {
 private fun LoginScreenContent(state: OnboardingUiState) {
     val title by state.titleFlow.collectAsState()
     val valuesList by state.mutableStateValue.collectAsState()
-    val fakeValue by state.fakeValue.collectAsState()
+    val word by state.wordValue.collectAsState()
     Scaffold(
         topBar = {
             TopAppBar {
@@ -38,10 +39,13 @@ private fun LoginScreenContent(state: OnboardingUiState) {
         ) {
             Column {
                 valuesList.forEach {
-                    Text(text = it)
+                    Text(text = it.word)
                 }
+
+                OutlinedTextField(value = word, onValueChange = state.onWordValueChanged)
+
                 Button(onClick = { state.fetchMoreData() }) {
-                    Text("Add value$fakeValue")
+                    Text("Add value")
                 }
             }
         }
@@ -53,9 +57,10 @@ private fun LoginScreenContent(state: OnboardingUiState) {
 private fun Preview() {
     val loginState = OnboardingUiState(
         titleFlow = MutableStateFlow("TEST"),
-        mutableStateValue = MutableStateFlow(listOf("HELO", "WORLD", "PREVIEW")),
-        fakeValue = MutableStateFlow(1),
-        fetchMoreData = {}
+        mutableStateValue = MutableStateFlow(emptyList()),
+        wordValue = MutableStateFlow("TEST"),
+        fetchMoreData = {},
+        onWordValueChanged = {}
     )
 
     LoginScreenContent(state = loginState)

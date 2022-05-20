@@ -19,6 +19,6 @@ class NavHelper @Inject constructor() {
 
     companion object {
         const val DATA_ID = "dataId"
-        const val DEEPLINK_SCHEME = "gospelliving://"
+        const val DEEPLINK_SCHEME = "ravNav://"
     }
 }

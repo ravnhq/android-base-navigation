@@ -1,25 +1,16 @@
 package com.example.ravn_navigation.repository
 
 import com.example.ravn_navigation.db.MainDatabase
+import com.example.ravn_navigation.db.model.Word
 import dagger.Reusable
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @Reusable
-class FakeRepository @Inject constructor(val db: MainDatabase)  {
-    val fakeListOfWords = listOf<String>("HELLO", "WORLDS")
-
-     suspend fun addDataToRoom(word: String) {
-
+class FakeRepository @Inject constructor(val db: MainDatabase) {
+    suspend fun addDataToRoom(word: String) {
+        db.worldDao().insertWord(Word(word = word))
     }
 
-     fun getDataFromRoom(): Flow<List<String>> = flow<List<String>> {
-        emit(fakeListOfWords)
-    }.flowOn(Dispatchers.IO)
+    fun getDataFromRoom(): Flow<List<Word>> = db.worldDao().getAllWords()
 }

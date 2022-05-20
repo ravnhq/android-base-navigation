@@ -49,7 +49,7 @@ object RouteUtil {
     }
 
     /**
-     * Adds arguments to route for navigation calls
+     * Adds arguments to route for navigation calls1
      *
      * Usage: val route = "individual$RouteUtil.optionalArgs(mapOf("individualId" to "1234","enabled" to true))"
      */

@@ -3,6 +3,8 @@ package com.example.ravn_navigation.auth.onboarding
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
@@ -36,14 +38,13 @@ private fun LoginScreenContent(state: OnboardingUiState) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
             Column {
                 valuesList.forEach {
                     Text(text = it.word)
                 }
-
                 OutlinedTextField(value = word, onValueChange = state.onWordValueChanged)
-
                 Button(onClick = { state.fetchMoreData() }) {
                     Text("Add value")
                 }

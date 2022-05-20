@@ -9,7 +9,6 @@ import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.rememberNavController
@@ -19,7 +18,6 @@ import com.example.ravn_navigation.nav.NavScreen
 import com.example.ravn_navigation.nav.Navigator
 import com.example.ravn_navigation.nav.hideKeyboard
 import com.example.ravn_navigation.nav.navigateSafely
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import javax.inject.Inject
